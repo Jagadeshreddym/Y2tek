@@ -1,7 +1,8 @@
 // screens/HomeScreen.tsx
 
 import React from 'react';
-import { View, Text, Button, ActivityIndicator } from 'react-native';
+import { View, Text, Button, ActivityIndicator, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';  // Import Ionicons
 import useFetch from '../hooks/useFetch';
 
 interface Post {
@@ -18,6 +19,14 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
       {isLoading && <ActivityIndicator size="large" />}
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
+
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home Screen</Text>
+      {/* Custom Button with Hamburger Icon */}
+      <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ padding: 10 }}>
+        <Icon name="menu" size={30} color="black" />
+      </TouchableOpacity>
+    </View>
       {data && !isLoading && !error && (
         <View>
           {data.map((post) => (
