@@ -12,10 +12,14 @@ import {
 import Card from '../utils/Card';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/DetailsScreen';
+import HomeScreen from './Home';
+import DetailsScreen from './Menu';
 import Icon from 'react-native-vector-icons/Ionicons'; // Using Ionicons from react-native-vector-icons
-
+import Wallet from './Wallet';
+import Portfolio from './Portfolio';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Home from './Home';
+import Menu from './Menu';
 
 const DrawerOverlay: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -44,62 +48,7 @@ const DrawerOverlay: React.FC = () => {
   return (
     <View style={styles.container}>
       <Button title="Open Modal" onPress={toggleModal} />
-
-      <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused }) => (
-                <Image
-                  source={focused ? require('./assets/home-active.png') : require('./assets/home-inactive.png')}
-                  style={{ width: 25, height: 25 }}
-                />
-              )
-
-
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            
-            if (route.name === 'Menu') {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Home') {
-              iconName = focused ? 'settings' : 'settings-outline';
-            } else if (route.name === 'Wallet') {
-              iconName = focused ? 'person' : 'person-outline';
-            }else if (route.name === 'Portfolio') {
-                iconName = focused ? 'person' : 'person-outline';
-              }
-            // You can return any component that you like here, including custom images
-            return <Icon name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'blue',
-          tabBarInactiveTintColor: 'gray',
-          tabBarStyle: { paddingBottom: 10, height: 60 },
-        })}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ tabBarLabel: 'Menu' }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={DetailsScreen}
-          options={{ tabBarLabel: 'Home' }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={HomeScreen}
-          options={{ tabBarLabel: 'Wallet' }}
-        />
-         <Tab.Screen
-          name="Profile"
-          component={DetailsScreen}
-          options={{ tabBarLabel: 'Portfolio' }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
-
-      <Modal
+    <Modal
         transparent={true}
         visible={isModalVisible}
         animationType="none" // Disable built-in animation, we'll use our custom animation
@@ -123,6 +72,84 @@ const DrawerOverlay: React.FC = () => {
           </Animated.View>
         </View>
       </Modal>
+      <SafeAreaView style={{ flex: 1, flexDirection:'row' }}>
+      <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ fontSize: 12, color: focused ? 'blue' : 'gray' }}>
+              {route.name}
+            </Text>
+          ),
+          tabBarActiveTintColor: 'blue',
+          tabBarInactiveTintColor: 'gray',
+          tabBarStyle: { paddingBottom: 10, height: 50 },
+        })}
+      >
+        <Tab.Screen
+          name="Menu"
+          component={Home}
+          options={{ tabBarIcon: ({ focused }) => {
+            let iconName = focused
+            ? require('../assets/images/menu_tab.png')
+            : require('../assets/images/menu_tab.png');;
+             return (
+              <Image
+                source={iconName}
+                style={{ width: 25, height: 25 }}
+              />
+            );
+          }, }}
+        />
+        <Tab.Screen
+          name="Home"
+          component={Menu}
+          options={{ tabBarIcon: ({ focused }) => {
+            let iconName = focused
+            ? require('../assets/images/home_tab.png')
+            : require('../assets/images/home_tab.png');
+             return (
+              <Image
+                source={iconName}
+                style={{ width: 25, height: 25 }}
+              />
+            );
+          }, }}
+        />
+        <Tab.Screen
+          name="Wallet"
+          component={Wallet}
+          options={{ tabBarIcon: ({ focused }) => {
+            let iconName = focused
+            ? require('../assets/images/wallet_tab.png')
+            : require('../assets/images/wallet_tab.png');
+             return (
+              <Image
+                source={iconName}
+                style={{ width: 25, height: 25 }}
+              />
+            );
+          }, }}
+        />
+         <Tab.Screen
+          name="Portfolio"
+          component={Portfolio}
+          options={{ tabBarIcon: ({ focused }) => {
+            let iconName = focused
+            ? require('../assets/images/chart_tab.png')
+              : require('../assets/images/chart_tab.png');
+             return (
+              <Image
+                source={iconName}
+                style={{ width: 25, height: 25 }}
+              />
+            );
+          }, }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+        </SafeAreaView>
     </View>
   );
 };

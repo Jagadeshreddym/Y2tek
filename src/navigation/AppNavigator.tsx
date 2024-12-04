@@ -3,8 +3,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/DetailsScreen';
+import HomeScreen from '../components/Home';
+import DetailsScreen from '../components/Menu';
 
 // Define the type for the Stack Navigator
 type RootStackParamList = {

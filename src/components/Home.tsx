@@ -11,7 +11,7 @@ interface Post {
   body: string;
 }
 // The `HomeScreen` does not require any params
-const HomeScreen = ({ navigation }: { navigation: any }) => {
+const Home = ({ navigation }: { navigation: any }) => {
     const { data, error, isLoading } = useFetch<Post[]>('https://jsonplaceholder.typicode.com/posts');
 
   return (
@@ -49,4 +49,4 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   );
 };
 
-export default HomeScreen;
+export default Home;

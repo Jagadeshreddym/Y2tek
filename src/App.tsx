@@ -8,7 +8,7 @@ import OtpScreen from './screens/OtpScreen';
 const App: React.FC = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <OtpScreen />
+      <DrawerOverlay />
     </SafeAreaView>
   );
 };
