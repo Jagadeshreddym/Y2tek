@@ -83,13 +83,14 @@ const DrawerOverlay: React.FC = () => {
             </Text>
           ),
           tabBarActiveTintColor: 'blue',
+          headerShown:false,
           tabBarInactiveTintColor: 'gray',
           tabBarStyle: { paddingBottom: 10, height: 50 },
         })}
       >
         <Tab.Screen
           name="Menu"
-          component={Home}
+          component={Menu}
           options={{ tabBarIcon: ({ focused }) => {
             let iconName = focused
             ? require('../assets/images/menu_tab.png')
