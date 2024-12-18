@@ -8,24 +8,31 @@ import {
   Animated,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
 import Card from '../utils/Card';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './Home';
-import DetailsScreen from './Menu';
+import DetailsScreen from './menu/Menu';
 import Icon from 'react-native-vector-icons/Ionicons'; // Using Ionicons from react-native-vector-icons
-import Wallet from './Wallet';
-import Portfolio from './Portfolio';
+import Wallet from './menu/Wallet';
+import Portfolio from './menu/Portfolio';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Home from './Home';
-import Menu from './Menu';
+import Home from './menu/Home';
+import Menu from './menu/Menu';
 
 const DrawerOverlay: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const translateX = useState(new Animated.Value(-400))[0]; // Start off-screen on the left
   const Tab = createBottomTabNavigator();
+  const [isMenu, setMenu] = useState(true);
 
+  // Define the function in the parent
+  const navigateMenu = () => {
+    Alert.alert('Hello from Parent!', 'This alert was triggered by the parent component.');
+  };
+
+  
   const toggleModal = () => {
     if (isModalVisible) {
       // Close the modal with an animation
@@ -46,8 +53,20 @@ const DrawerOverlay: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Button title="Open Modal" onPress={toggleModal} />
+       <View style={styles.container}>
+      <View style={{backgroundColor:'#2AACF5', width:'100%'}}>
+      <View  style = {{backgroundColor:'white', flexDirection:'row', padding: 10,borderBottomEndRadius:10, borderBottomLeftRadius:10, alignItems:'center', width:'100%',justifyContent: 'space-between',}}>
+           <View style = {{flexDirection:'row', alignItems:'center'}}>
+           <TouchableOpacity onPress={toggleModal}>
+            <Image source={require('../assets/images/user_profile.png')} style = {{marginEnd:10}}/>
+            </TouchableOpacity>
+            <Text >User Name</Text>
+           </View>
+            
+            <Image source={require('../assets/images/bell_.png')} style = {{marginEnd:10, justifyContent:'flex-end'}}/>
+          </View>
+      </View>
+    
     <Modal
         transparent={true}
         visible={isModalVisible}
@@ -55,20 +74,30 @@ const DrawerOverlay: React.FC = () => {
         onRequestClose={toggleModal}
       >
         <View style={styles.overlay}>
-          <TouchableOpacity style={styles.overlay} onPress={toggleModal} />
+          
           <Animated.View style={[styles.modal, { transform: [{ translateX }] }]}>
-            <View style = {{height:50}}>
-            <Card title="User Profile" image1={require('../assets/images/profile.jpg')} image2={require('../assets/images/profile.jpg')} backgroundColor="white" isHeader={true} />
-            </View>
-          <View style={{marginTop:40}}>
-          <Card title="Profile" image1={require('../assets/images/profile_circle.png')} image2={require('../assets/images/navigation_arrow.png')} backgroundColor="white" isHeader={false}/>
-          <Card title="Subscription" image1={require('../assets/images/subscription.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false} />
-          <Card title="Exchange" image1={require('../assets/images/exchange.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false}/>
-          <Card title="Security" image1={require('../assets/images/security.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false} />
-          <Card title="Activity Logs" image1={require('../assets/images/activity_log.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false}/>
-          <Card title="Notification" image1={require('../assets/images/notification.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false}/>
+            
+          <TouchableOpacity onPress={toggleModal}  style={{height:35, alignItems:'center', flexDirection:'row',  marginTop: 20}} >
+            <Image source={require('../assets/images/back.png')} style = {{marginEnd:10}}/>  
+            <Image source={require('../assets/images/user_profile.png')} style = {{marginEnd:10}}/>
+            <Text >{"User Name"}</Text>
+          </TouchableOpacity>
+            
+                     
+          <View style={{marginTop:25}}>
+          ../../assets
+          <Card title="Subscription" image1={require('../assets/images/subscription.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false} navigate={navigateMenu}/>
+          <Card title="Exchange" image1={require('../assets/images/exchange.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false} navigate={navigateMenu}/>
+          <Card title="Security" image1={require('../assets/images/security.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false} navigate={navigateMenu} />
+          <Card title="Activity Logs" image1={require('../assets/images/activity_log.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false} navigate={navigateMenu}/>
+          <Card title="Notification" image1={require('../assets/images/notification.png')} image2={require('../assets/images/navigation_arrow.png')}backgroundColor="white" isHeader={false} navigate={navigateMenu}/>
           </View>
-            <Button title="Close Modal" onPress={toggleModal} />
+
+          <TouchableOpacity style={styles.signupButton} onPress={toggleModal} >
+          <Image source={require('../assets/images/sign_out.png')} style={{height:20, width:20}}/>
+            <Text style={{marginLeft:10.,color:'white', fontSize:14}}>Sign Out</Text>
+        </TouchableOpacity>
+            
           </Animated.View>
         </View>
       </Modal>
@@ -76,7 +105,6 @@ const DrawerOverlay: React.FC = () => {
       <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          
           tabBarLabel: ({ focused }) => (
             <Text style={{ fontSize: 12, color: focused ? 'blue' : 'gray' }}>
               {route.name}
@@ -85,31 +113,43 @@ const DrawerOverlay: React.FC = () => {
           tabBarActiveTintColor: 'blue',
           headerShown:false,
           tabBarInactiveTintColor: 'gray',
-          tabBarStyle: { paddingBottom: 10, height: 50 },
-        })}
+          tabBarStyle: {  height: 50, },
+          tabBarActiveBackgroundColor :  '#6C5DD333',
+          animationEnabled: true,
+        })}        
       >
         <Tab.Screen
           name="Menu"
           component={Menu}
           options={{ tabBarIcon: ({ focused }) => {
             let iconName = focused
-            ? require('../assets/images/menu_tab.png')
-            : require('../assets/images/menu_tab.png');;
+            ? require('../assets/images/menu_focus.png')
+            : require('../assets/images/menu_tab.png');
+            if(focused)
+            {
+              setMenu(false);
+            }
              return (
               <Image
                 source={iconName}
                 style={{ width: 25, height: 25 }}
               />
             );
-          }, }}
+          }, }
+          
+        }
         />
         <Tab.Screen
           name="Home"
-          component={Menu}
+          component={Home}
           options={{ tabBarIcon: ({ focused }) => {
             let iconName = focused
             ? require('../assets/images/home_tab.png')
-            : require('../assets/images/home_tab.png');
+            : require('../assets/images/home.png');
+            if(focused)
+              {
+                setMenu(true);
+              }
              return (
               <Image
                 source={iconName}
@@ -123,8 +163,12 @@ const DrawerOverlay: React.FC = () => {
           component={Wallet}
           options={{ tabBarIcon: ({ focused }) => {
             let iconName = focused
-            ? require('../assets/images/wallet_tab.png')
+            ? require('../assets/images/wallet_focus.png')
             : require('../assets/images/wallet_tab.png');
+            if(focused)
+              {
+                setMenu(true);
+              }
              return (
               <Image
                 source={iconName}
@@ -133,13 +177,17 @@ const DrawerOverlay: React.FC = () => {
             );
           }, }}
         />
-         <Tab.Screen
+         <Tab.Screen  
           name="Portfolio"
           component={Portfolio}
           options={{ tabBarIcon: ({ focused }) => {
             let iconName = focused
-            ? require('../assets/images/chart_tab.png')
+            ? require('../assets/images/portfolio_focus.png')
               : require('../assets/images/chart_tab.png');
+              if(focused)
+                {
+                  setMenu(true);
+                }
              return (
               <Image
                 source={iconName}
@@ -161,6 +209,21 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start',
     alignItems:'flex-start',
   },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingTop: 10, 
+    paddingBottom: 10,
+    paddingLeft:10,
+    margin: 5,
+    marginStart:-10,
+    marginEnd:-10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent dark overlay
@@ -178,6 +241,18 @@ const styles = StyleSheet.create({
   modalContent: {
     fontSize: 18,
     marginBottom: 20,
+  },
+  signupButton:{
+    backgroundColor: 'red',  // Background color of the button
+    paddingVertical: 12,         // Vertical padding for the button
+    paddingHorizontal: 20,       // Horizontal padding for the button
+    borderRadius: 8,             // Rounded corners
+    alignItems: 'center',        // Centers the text horizontally
+    justifyContent: 'center',    // Centers the text vertically
+    height: 50,
+    width:'100%',
+    flexDirection:'row',
+    marginTop:100
   },
 });
 

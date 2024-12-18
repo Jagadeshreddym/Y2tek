@@ -2,14 +2,15 @@
 
 import React from 'react';
 import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import MenuScreen from '../MenuScreen';
 
 const Portfolio = () => {
     
 return (
-  <View>
-    <Text>Details Screen</Text>
-    <Text>Item ID: {12345}</Text>
-  </View>
+  <SafeAreaView style={{ flex: 1 }}>
+  <MenuScreen/>
+</SafeAreaView>
 );
 };
 

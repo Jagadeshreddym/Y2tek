@@ -4,7 +4,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../components/Home';
-import DetailsScreen from '../components/Menu';
+import DetailsScreen from '../components/menu/Menu';
 
 // Define the type for the Stack Navigator
 type RootStackParamList = {

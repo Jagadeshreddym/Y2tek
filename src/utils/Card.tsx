@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 interface CardProps {
   title: string;
@@ -7,21 +7,27 @@ interface CardProps {
   image2: any;
   backgroundColor?: string;
   isHeader:boolean;
+  navigate : any;
 }
 
-const Card: React.FC<CardProps> = ({ title, image1, image2, backgroundColor = 'white', isHeader}) => {
+const Card: React.FC<CardProps> = ({ title, image1, image2, backgroundColor = 'white', isHeader, navigate}) => {
+
+  
   return (
     <View style={[styles.card, { backgroundColor }]}>
     {
-    isHeader ?(<View style={[styles.row,{height: 40}]}>
+    isHeader ?(<View style={[styles.row,{height: 35}]}>
         {/* First Image */}
+        <TouchableOpacity onPress={navigate}>
         <Image source={ image1 } style={styles.image} />
+        </TouchableOpacity>
+       
         {/* Second Image */}
         <Image source={image2 } style={styles.image} />
         {/* Text Content */}
         <Text style={styles.cardTitle}>{title}</Text>
       </View>) 
-      : (<View style={[styles.row,{height:30}]}>
+      : (<TouchableOpacity style={[styles.row,{height:25}]} onPress={navigate}>
         {/* First Image */}
         <Image source={ image1 } style={styles.image} />
 
@@ -30,7 +36,8 @@ const Card: React.FC<CardProps> = ({ title, image1, image2, backgroundColor = 'w
 
         {/* Second Image */}
         <Image source={image2 } style={styles.image} />
-      </View>)}
+        
+      </TouchableOpacity>)}
       
     </View>
   );
@@ -58,8 +65,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', // Space between items
   },
   image: {
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
     borderRadius: 5, // Make the images circular
     marginRight: 10,
     marginTop:5,
@@ -69,9 +76,9 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     flex: 1, // Take up remaining space between the images
-    fontSize: 18,
+    fontSize: 16,
     justifyContent:'center',
-    marginTop:6
+    marginTop:4
   },
 });
 
