@@ -2,9 +2,11 @@ import React, { useEffect,useState } from 'react';
 import { View, Button, Text, StyleSheet, TextInput, Alert ,TouchableOpacity,Image,ScrollView} from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import { useNavigation } from '@react-navigation/native';
+
 
 const LoginScreen = () => {
-
+  const navigation = useNavigation();
     // State for form fields
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -90,7 +92,7 @@ const LoginScreen = () => {
         secureTextEntry={true}
       />
         {/* Sign Up Button */}
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity style={styles.signupButton} onPress={()=>  navigation.navigate('otp')}>
             <Text style={styles.buttonTextSignUP}>Sign In</Text>
         </TouchableOpacity>
 

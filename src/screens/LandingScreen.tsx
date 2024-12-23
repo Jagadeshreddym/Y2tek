@@ -1,7 +1,11 @@
 import React, { useEffect,useState } from 'react';
 import { View, Button, Text, StyleSheet, TextInput, Alert ,TouchableOpacity,Image,ScrollView} from 'react-native';
+import LoginScreen from './LoginScreen';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const LandingScreen = () => {
+const LandingScreen = ({ navigation }) => {
+
+  
 
   return (
     <View style={{flexDirection:'column',flex:1}}>
@@ -13,11 +17,11 @@ const LandingScreen = () => {
     <Text style={{fontSize: 20, marginTop:10, marginBottom:10, textAlign:'center'}}>Transforming Transactions, Empowering Portfolios</Text>
     <Text style={{fontSize: 16, marginBottom:10,textAlign:'center', fontFamily: 'League Spartan', color:'#6C5DD3' }}>Experience Crypto Excellence with Our App.</Text>
         {/* Sign Up Button */}
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity style={styles.signupButton} onPress={()=>  navigation.navigate('login')}>
             <Text style={styles.buttonTextSignUP}>Sign In</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.signinButton}>
+        <TouchableOpacity style={styles.signinButton} onPress={()=>  navigation.navigate('signup')}>
             <Text style={styles.buttonTextSignIn}>Sign Up</Text>
         </TouchableOpacity>
 
