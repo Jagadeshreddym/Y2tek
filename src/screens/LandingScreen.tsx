@@ -1,15 +1,13 @@
 import React, { useEffect,useState } from 'react';
 import { View, Button, Text, StyleSheet, TextInput, Alert ,TouchableOpacity,Image,ScrollView} from 'react-native';
-import LoginScreen from './LoginScreen';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const LandingScreen = ({ navigation }) => {
+const LandingScreen = ({navigation}) => {
 
-  
+ 
 
   return (
     <View style={{flexDirection:'column',flex:1}}>
-    <Image source={require('../assets/images/frame.png')} style={{height:'30%', width:'100%'}}/>
+    <Image source={require('../assets/images/frame.png')} style={{height:'25%', width:'100%'}}/>
      <ScrollView style={styles.box}>
      <View style={styles.container}>
      

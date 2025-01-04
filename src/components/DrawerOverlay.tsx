@@ -60,7 +60,7 @@ const DrawerOverlay: React.FC = () => {
            <TouchableOpacity onPress={toggleModal}>
             <Image source={require('../assets/images/user_profile.png')} style = {{marginEnd:10}}/>
             </TouchableOpacity>
-            <Text >User Name</Text>
+            <Text >Jagadesh</Text>
            </View>
             
             <Image source={require('../assets/images/bell_.png')} style = {{marginEnd:10, justifyContent:'flex-end'}}/>
@@ -102,7 +102,7 @@ const DrawerOverlay: React.FC = () => {
         </View>
       </Modal>
       <SafeAreaView style={{ flex: 1, flexDirection:'row' }}>
-      <NavigationContainer>
+      
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarLabel: ({ focused }) => (
@@ -197,7 +197,7 @@ const DrawerOverlay: React.FC = () => {
           }, }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
+   
         </SafeAreaView>
     </View>
   );

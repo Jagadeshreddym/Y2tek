@@ -5,8 +5,7 @@ import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { useNavigation } from '@react-navigation/native';
 
 
-const LoginScreen = () => {
-  const navigation = useNavigation();
+const LoginScreen = ({navigation}) => {
     // State for form fields
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

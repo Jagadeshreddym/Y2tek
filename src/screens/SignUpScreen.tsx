@@ -3,7 +3,7 @@ import { View, Button, Text, StyleSheet, TextInput, Alert ,TouchableOpacity,Imag
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
-const SignUpScreen = () => {
+const SignUpScreen = ({navigation}) => {
 
     // State for form fields
   const [name, setName] = useState('');
@@ -97,7 +97,7 @@ const SignUpScreen = () => {
         secureTextEntry={true}
       />
         {/* Sign Up Button */}
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity style={styles.signupButton} onPress={()=>  navigation.navigate('login')}>
             <Text style={styles.buttonTextSignUP}>Sign Up</Text>
         </TouchableOpacity>
 
@@ -131,7 +131,7 @@ const SignUpScreen = () => {
                 {/* Google Sign-In Button */}
                 <Text style={{marginTop:23}}>Already have an account ?</Text>
                 {/* Facebook Sign-In Button */}
-                <TouchableOpacity style={styles.button} >
+                <TouchableOpacity style={styles.button} onPress={()=>  navigation.navigate('login')}>
                     <Text style={styles.buttonTextWithoutImage}>Sign In</Text>
                 </TouchableOpacity>
     

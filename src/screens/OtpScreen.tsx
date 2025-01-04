@@ -1,11 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
-const OtpScreen = () => {
+const OtpScreen = ({navigation}) => {
   const [otp, setOtp] = useState(['', '', '', '','','']);
   const inputRefs = useRef([]);
-  const navigation = useNavigation();
 
   const handleChangeText = (value, index) => {
     // Update OTP state
@@ -51,7 +49,7 @@ const OtpScreen = () => {
       
       </View>
        {/* Sign Up Button */}
-       <TouchableOpacity style={styles.signupButton} >
+       <TouchableOpacity style={styles.signupButton} onPress={()=>  navigation.navigate('dashboard')}>
             <Text style={styles.buttonTextSignUP}>Continue</Text>
         </TouchableOpacity>
       </View>
