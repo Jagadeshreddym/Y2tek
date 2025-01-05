@@ -1,75 +1,104 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { PieChart } from 'react-native-svg-charts';
-import { Text, G } from 'react-native-svg';
-import * as d3 from 'd3-shape';
+import React, { useState } from 'react';
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import PieChartView from '../../utils/PieChartView';
+import Card from '../../utils/Card';
+import CardWithText from '../../utils/CardWithText';
 
-// Define types for slice data
-interface SliceData {
-  pieCentroid: [number, number];
-  data: {
-    value: number;
-  };
-}
+
 
 const Portfolio = () => {
-  // Data for the donut chart
-  const data = [25, 16, 21, 18];
+  const [data, setData] = useState([25, 16, 21, 18]);
+  const [content, setContent] = useState('$125.00 25%');
+  const tabs = ['1D', '2D', '3D','4D','5D'];
+  const detailsTab = ['Balance', 'Profit', 'Investments'];
 
-  // Colors for each section
-  const colors = ['#600080', '#9900cc', '#c61aff', '#d966ff'];
+  const [selectedTab, setSelectedTab] = useState(0); // Initially, the first tab is selected
+  const [selectedTabDetails, setSelectedTabDetails] = useState(0); // Initially, the first tab is selected
 
-  // Chart sections configuration
-  const pieData = data
-    .filter(value => value > 0)
-    .map((value, index) => ({
-      value,
-      svg: {
-        fill: colors[index],
-        cornerRadius: 10,  // Apply rounded corners
-        onPress: () => console.log('Pressed on section: ', index),
-      },
-      key: `pie-${index}`,
-    }));
-    const arcGenerator = d3.arc().outerRadius(10).innerRadius(0);  // Define inner and outer radius
-
-
-  // Custom Label Component
-  const Label = ({ slices }: { slices: SliceData[] }) => {
-    return (
-      <G>
-        {slices.map((slice, index) => {
-          const { pieCentroid, data } = slice;
-          return (
-            <Text
-              key={index}
-              x={pieCentroid[0]}
-              y={pieCentroid[1]}
-              fill="white"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-              fontSize={18}
-              
-            >
-              {data.value}
-            </Text>
-          );
-        })}
-      </G>
-    );
+ const navigateMenu = () => {
+  Alert.alert('Hello from Parent!', 'This alert was triggered by the parent component.');
+};
+  const handleTabPress = (index: React.SetStateAction<number>) => {
+    console.log("Selected Index", index)
+    setSelectedTab(index); // Update the selected tab index
   };
-
+  
+   // Step 3: Handle tab selection
+   const handleTabPressDetails = (index: React.SetStateAction<number>) => {
+    console.log("Selected Index on second tab", index)
+    setSelectedTabDetails(index); // Update the selected tab index
+     if (index === 0) {
+       setData([45, 8, 20, 12]);
+       setContent('$125.00 25%');
+     } else if (index === 1) {
+       setData([30, 14, 17, 23]);
+       setContent('$64.00 35%');
+     }
+     else {
+       setData([25, 16, 21, 18]);
+       setContent('$200.00 12%');
+     }
+    
+  };
+  
   return (
-    <View style={{ height: 300, justifyContent: 'center', alignItems: 'center' }}>
-      <PieChart
-        style={{height:500, width:'100%', marginTop:20, borderRadius:10}}
-        outerRadius="60%"  // Makes the chart a donut by reducing outer radius
-        innerRadius="40%"  // Creates the hole in the middle
-        data={pieData}
-      >
-        {/* Adding custom labels */}
-        <Label slices={[]} />
-      </PieChart>
+    <View style={{ height: "100%" , flexDirection:'column'}}>
+      <View style={{height:300}}>
+      <PieChartView data={data} />
+      </View>
+    
+     <View style={styles.tabBar}>
+        {tabs.map((tab, index) => (
+          
+          <TouchableOpacity
+            key={index}
+            style={[
+              styles.tab,
+              selectedTab === index && styles.selectedTab, // Highlight selected tab
+            ]}
+            onPress={() => handleTabPress(index)} // Change selected tab
+          >
+            <Text style={{color:'black'}}>{tab}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <View style={styles.tabBar}>
+        {detailsTab.map((tab, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[
+              styles.tab,
+              selectedTabDetails === index && styles.selectedTab, // Highlight selected tab
+            ]}
+            onPress={() => handleTabPressDetails(index)} // Change selected tab
+          >
+            <Text
+              style={[
+                styles.tabText,
+                selectedTabDetails === index && styles.selectedTabText, // Change text color of selected tab
+              ]}
+            >{tab}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <ScrollView style={{marginTop:30}}>
+      <View style={{marginLeft:20, marginRight:20}}>
+        {/* Table Header */}
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white" content={content} navigate={navigateMenu} />
+
+
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white"  content={content} navigate={navigateMenu} />
+
+
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white"  content={content} navigate={navigateMenu} />
+
+
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white"  content={content} navigate={navigateMenu} />
+
+      </View>
+    </ScrollView>
     </View>
   );
 };
@@ -93,6 +122,50 @@ const styles =  StyleSheet.create({
       text: {
         fontSize: 18,
         marginVertical: 10,
+      },
+      selectedTab: {
+        backgroundColor: '#007bff', // Background for selected tab
+      },
+      tabText: {
+        fontSize: 16,
+        color: '#333', // Default text color for unselected tab
+      }, tableRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        //height: 60,
+      },
+      tabBar: {
+        flexDirection: 'row',
+        height: 30,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 10,
+        overflow: 'hidden',
+        width: '95%', 
+        marginTop:20,
+        marginLeft:'2.5%'
+       
+      },
+      tab: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#e0e0e0', 
+       
+      },
+      selectedTabText: {
+        color: '#333', // Text color for selected tab (white)
+        backgroundColor: '#007bff',
+      },
+      tableHeader: {
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+        fontSize: 16,
+        //height: 50,
       },
   });
 
