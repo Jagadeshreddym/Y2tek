@@ -1,156 +1,99 @@
-import React from 'react'
-import { ScrollView, StatusBar, Dimensions, Text } from 'react-native'
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph
-} from 'react-native-chart-kit'
-import { data, contributionData, pieChartData, progressChartData } from '../menu/data'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { PieChart } from 'react-native-svg-charts';
+import { Text, G } from 'react-native-svg';
+import * as d3 from 'd3-shape';
 
-// in Expo - swipe left to see the following styling, or create your own
-const chartConfigs = [
-  {
-    backgroundColor: '#000000',
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientTo: '#08130D',
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    style: {
-      borderRadius: 16
-    }
-  },
-  {
-    backgroundColor: '#022173',
-    backgroundGradientFrom: '#022173',
-    backgroundGradientTo: '#1b3fa0',
-    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-    style: {
-      borderRadius: 16
-    }
-  },
-  {
-    backgroundColor: '#ffffff',
-    backgroundGradientFrom: '#ffffff',
-    backgroundGradientTo: '#ffffff',
-    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
-  },
-  {
-    backgroundColor: '#26872a',
-    backgroundGradientFrom: '#43a047',
-    backgroundGradientTo: '#66bb6a',
-    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-    style: {
-      borderRadius: 16
-    }
-  },
-  {
-    backgroundColor: '#000000',
-    backgroundGradientFrom: '#000000',
-    backgroundGradientTo: '#000000',
-    color: (opacity = 1) => `rgba(${255}, ${255}, ${255}, ${opacity})`
-  }, {
-    backgroundColor: '#0091EA',
-    backgroundGradientFrom: '#0091EA',
-    backgroundGradientTo: '#0091EA',
-    color: (opacity = 1) => `rgba(${255}, ${255}, ${255}, ${opacity})`
-  },
-  {
-    backgroundColor: '#e26a00',
-    backgroundGradientFrom: '#fb8c00',
-    backgroundGradientTo: '#ffa726',
-    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-    style: {
-      borderRadius: 16
-    }
-  },
-  {
-    backgroundColor: '#b90602',
-    backgroundGradientFrom: '#e53935',
-    backgroundGradientTo: '#ef5350',
-    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-    style: {
-      borderRadius: 16
-    }
-  },
-  {
-    backgroundColor: '#ff3e03',
-    backgroundGradientFrom: '#ff3e03',
-    backgroundGradientTo: '#ff3e03',
-    color: (opacity = 1) => `rgba(${0}, ${0}, ${0}, ${opacity})`
-  }
-]
-
-export default class Portfolio extends React.Component {
-  renderTabBar() {
-    return <StatusBar hidden/>
-  }
-  render() {
-    const width = Dimensions.get('window').width
-    const height = 220
-    return (
-      <ScrollView >
-        {chartConfigs.map(chartConfig => {
-          const labelStyle = {
-            color: chartConfig.color(),
-            marginVertical: 10,
-            textAlign: 'center' as 'center',
-            fontSize: 16
-          }
-          const graphStyle = {
-            marginVertical: 8,
-            ...chartConfig.style
-          }
-          return (
-            <ScrollView
-              key={Math.random()}
-              style={{
-                backgroundColor: chartConfig.backgroundColor
-              }}
-            >
-              <Text style={labelStyle}>Bezier Line Chart</Text>
-              <LineChart
-                data={data}
-                width={width}
-                height={height}
-                chartConfig={chartConfig}
-                bezier
-                style={graphStyle}
-              />
-              <Text style={labelStyle}>Progress Chart</Text>
-              <ProgressChart
-                data={progressChartData}
-                width={width}
-                height={height}
-                chartConfig={chartConfig}
-                style={graphStyle}
-              />
-           
-              <Text style={labelStyle}>Pie Chart</Text>
-              <PieChart
-                data={pieChartData}
-                height={height}
-                width={width}
-                chartConfig={chartConfig}
-                accessor="population"
-                style={graphStyle}
-                backgroundColor={chartConfig.backgroundColor}
-                paddingLeft="15"
-              />
-              <Text style={labelStyle}>Line Chart</Text>
-              <LineChart
-                data={data}
-                width={width}
-                height={height}
-                chartConfig={chartConfig}
-                style={graphStyle}
-              />
-              
-             
-            </ScrollView>
-          )
-        })}
-      </ScrollView>
-    )
-  }
+// Define types for slice data
+interface SliceData {
+  pieCentroid: [number, number];
+  data: {
+    value: number;
+  };
 }
+
+const Portfolio = () => {
+  // Data for the donut chart
+  const data = [25, 16, 21, 18];
+
+  // Colors for each section
+  const colors = ['#600080', '#9900cc', '#c61aff', '#d966ff'];
+
+  // Chart sections configuration
+  const pieData = data
+    .filter(value => value > 0)
+    .map((value, index) => ({
+      value,
+      svg: {
+        fill: colors[index],
+        cornerRadius: 10,  // Apply rounded corners
+        onPress: () => console.log('Pressed on section: ', index),
+      },
+      key: `pie-${index}`,
+    }));
+    const arcGenerator = d3.arc().outerRadius(10).innerRadius(0);  // Define inner and outer radius
+
+
+  // Custom Label Component
+  const Label = ({ slices }: { slices: SliceData[] }) => {
+    return (
+      <G>
+        {slices.map((slice, index) => {
+          const { pieCentroid, data } = slice;
+          return (
+            <Text
+              key={index}
+              x={pieCentroid[0]}
+              y={pieCentroid[1]}
+              fill="white"
+              textAnchor="middle"
+              alignmentBaseline="middle"
+              fontSize={18}
+              
+            >
+              {data.value}
+            </Text>
+          );
+        })}
+      </G>
+    );
+  };
+
+  return (
+    <View style={{ height: 300, justifyContent: 'center', alignItems: 'center' }}>
+      <PieChart
+        style={{height:500, width:'100%', marginTop:20, borderRadius:10}}
+        outerRadius="60%"  // Makes the chart a donut by reducing outer radius
+        innerRadius="40%"  // Creates the hole in the middle
+        data={pieData}
+      >
+        {/* Adding custom labels */}
+        <Label slices={[]} />
+      </PieChart>
+    </View>
+  );
+};
+const styles =  StyleSheet.create({
+  
+    shadowBox: {
+        width: '100%',
+        height: 473,
+        backgroundColor: '#b5cbf6',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,  // Rounded corners
+        // iOS Shadow
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 }, // Horizontal & vertical offset
+        shadowOpacity: 0.8,   // Shadow opacity (0 to 1)
+        shadowRadius: 6,      // How much to blur the shadow
+        // Android Shadow (Elevation)
+        elevation: 8,  // Increase to make the shadow more prominent
+      },
+      text: {
+        fontSize: 18,
+        marginVertical: 10,
+      },
+  });
+
+export default Portfolio;
