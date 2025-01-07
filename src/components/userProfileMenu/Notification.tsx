@@ -56,10 +56,6 @@ const styles = StyleSheet.create({
     height:50,
     marginLeft:10,
   },
-  icon: {
-    width: 30,  // Set the width of the image
-    height: 20, // Set the height of the image
-  },
   text: {
     color: 'black', // Text color
     fontSize: 16,   // Text font size

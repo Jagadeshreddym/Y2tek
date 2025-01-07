@@ -16,7 +16,7 @@ const Subscriptions = () => {
         <View style={{ height: "100%", flexDirection: 'column' }}>
                 <View style={styles.container}>
                     <TouchableOpacity style={styles.button} onPress={() => alert('Button pressed!')}>
-                        <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+                        <Image source={require('../../assets/images/back.png')}/>
                     </TouchableOpacity>
                     <Text style={styles.text}>Subscriptions</Text>
                 </View>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 
     switchPlanText: {
         color: 'white', // Text color
-        fontSize: 16,   // Text font size
+        fontSize: 15,   // Text font size
     },
 
     row: {

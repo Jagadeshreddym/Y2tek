@@ -24,7 +24,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Home from "./menu/Home";
 import Menu from "./menu/Menu";
 
-const DrawerOverlay: React.FC = () => {
+const DrawerOverlay: React.FC = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const translateX = useState(new Animated.Value(-400))[0]; // Start off-screen on the left
   const Tab = createBottomTabNavigator();
@@ -36,11 +36,30 @@ const DrawerOverlay: React.FC = () => {
   const focusedTabRoute = tabState.routes[focusedTabIndex].name;
 
   // Define the function in the parent
-  const navigateMenu = () => {
-    Alert.alert(
-      "Hello from Parent!",
-      "This alert was triggered by the parent component."
-    );
+  const navigateMenu = (index: number) => {
+    toggleModal();
+    switch(index)
+    {
+      case 0:
+        navigation.navigate('userprofile');
+        break;
+      case 1:
+        navigation.navigate('subscription');
+      break
+      case 2:
+        navigation.navigate('notification');
+        break;
+      case 3:
+        navigation.navigate('notification');
+      break
+      case 4:
+        navigation.navigate('activitylog');
+        break;
+      case 5:
+        navigation.navigate('notification');
+      break
+    }
+    
   };
 
   const toggleModal = () => {
@@ -128,6 +147,15 @@ const DrawerOverlay: React.FC = () => {
 
             <View style={{ marginTop: 25 }}>
               ../../assets
+              <Card
+                title="Profile"
+                image1={require("../assets/images/profile_circle.png")}
+                image2={require("../assets/images/navigation_arrow.png")}
+                backgroundColor="white"
+                isHeader={false}
+                navigate={
+                  navigateMenu
+                  }/>
               <Card
                 title="Subscription"
                 image1={require("../assets/images/subscription.png")}

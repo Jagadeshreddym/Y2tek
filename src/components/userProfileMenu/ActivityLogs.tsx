@@ -11,7 +11,7 @@ return (
     <View style={{ height: "100%", flexDirection: 'column' }}>
         <View style={styles.container}>
             <TouchableOpacity style={styles.button} onPress={() => alert('Button pressed!')}>
-                <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+                <Image source={require('../../assets/images/back.png')}/>
             </TouchableOpacity>
             <Text style={styles.text}>Activity Logs</Text>
         </View>
@@ -24,21 +24,21 @@ return (
                         {logs.map((log, index) => (
                             <View style={styles.rowContainer}>
                                 <View style={styles.timeContainer}>
-                                    <Image source={require('../../assets/images/robo_bolt.png')} style={styles.timeIcon} />
+                                    <Image source={require('../../assets/images/power.png')} style={styles.timeIcon} />
                                     <Text style={styles.timeText}>02:10 PM</Text>
                                 </View>
 
                                 <View style={styles.accessDetailsContainer}>
-                                    <Text style={styles.rowText}>Logged In</Text>
+                                    <Text style={styles.rowTextTitle}>Logged in</Text>
                                     <View style={styles.rowContainerOS}>
                                         <View style={styles.rowContainerOS}>
-                                            <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+                                            <Image source={require('../../assets/images/windows.png')} style={styles.icon} />
                                              <Text style={styles.rowText}>Windows</Text>
                                         </View>
-                                        <View style={styles.rowContainerOS}>
-                                            <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+                                        {/* <View style={styles.rowContainerOS}> */}
+                                            <Image source={require('../../assets/images/chrome.png')} style={styles.icon} />
                                             <Text style={styles.rowText}>Chrome</Text>
-                                        </View>
+                                        {/* </View> */}
                                         
                                     </View>
                                 </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginLeft:10,
     marginRight:10,
     marginTop:10,
-    borderRadius: 5,
+    borderRadius: 10,
     flexDirection: 'row', // Aligns image and text horizontally
     alignItems: 'center', // Center aligns both image and text vertically
   },
@@ -71,8 +71,10 @@ const styles = StyleSheet.create({
     marginLeft:10,
   },
   icon: {
-    width: 30,  // Set the width of the image
-    height: 20, // Set the height of the image
+    width: 15,  // Set the width of the image
+    height: 15, // Set the height of the image
+    marginLeft : 10,
+    marginBottom : 25,
   },
   text: {
     color: 'black', // Text color
@@ -97,7 +99,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row', // Aligns image and text horizontally
     // backgroundColor: 'red'
-    marginLeft: 10,
     marginRight: 10,
   },
 
@@ -113,6 +114,8 @@ const styles = StyleSheet.create({
   rowContainerOS: {
     height: 50,
     flexDirection: 'row', // Aligns image and text horizontally
+    alignItems: 'center', // Center aligns both image and text vertically
+    marginRight: 40,
   },
 
   accessDetailsContainer: {
@@ -129,11 +132,19 @@ const styles = StyleSheet.create({
      elevation: 8,  // Increase to make the shadow more prominent
   },
 
+  rowTextTitle: {
+    color: 'black', // Text color
+    fontSize: 13,   // Text font size
+    marginLeft : 10,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+
   rowText: {
     color: 'black', // Text color
     fontSize: 13,   // Text font size
     marginLeft : 10,
-    marginTop: 10,
+    marginBottom: 25,
   },
 
   timeText: {

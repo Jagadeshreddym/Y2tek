@@ -7,6 +7,10 @@ import OtpScreen from './screens/OtpScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import SignUpScreen from './screens/SignUpScreen';
 import { createStackNavigator } from '@react-navigation/stack';
+import ActivityLogs from './components/userProfileMenu/ActivityLogs';
+import Notification from './components/userProfileMenu/Notification';
+import Subscriptions from './components/userProfileMenu/Subscriptions';
+import UserProfile from './components/userProfileMenu/UserProfile';
 
 
 
@@ -22,6 +26,10 @@ const App: React.FC = () => {
         <Stack.Screen name="otp" component={OtpScreen}  options={{ headerShown: false }}/>
         <Stack.Screen name="signup" component={SignUpScreen}  options={{ headerShown: false }} />
         <Stack.Screen name="dashboard" component={DrawerOverlay}  options={{ headerShown: false }}/>
+        <Stack.Screen name="notification" component={Notification}  options={{ headerShown: false }}/>
+        <Stack.Screen name="activitylog" component={ActivityLogs}  options={{ headerShown: false }}/>
+        <Stack.Screen name="subscription" component={Subscriptions}  options={{ headerShown: false }}/>
+        <Stack.Screen name="userprofile" component={UserProfile}  options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   </SafeAreaView>

@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, ScrollView, TextInput } from 'react-native';
 
-const UserProfile = () => {
+const UserProfile = ({navigation}) => {
 
 const [phoneNumber, setPhoneNumber] = useState('');
 const [address, setAddress] = useState('');
@@ -11,14 +11,14 @@ const [address, setAddress] = useState('');
 return (
   <View style={{ height: "100%", flexDirection: 'column' }}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={() => alert('Button pressed!')}>
-          <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+          <Image source={require('../../assets/images/back.png')}/>
         </TouchableOpacity>
         <Text style={styles.navigationTitle}>Profile</Text>
       </View>  
       <ScrollView style={{marginTop:10}}>
       <View style={styles.profile}>
-        <Image source={require('../../assets/images/robo_bolt.png')} style={styles.image} />
+        <Image source={require('../../assets/images/user_profile_menu.png')} style={styles.image} />
         <Text style={styles.title}>user@emailid.com</Text>
 
         <View style={styles.inputContainer}>
@@ -49,16 +49,16 @@ return (
       
       <View style={styles.documentsDetails}>
         <View style={styles.documents}>
-          <Image source={require('../../assets/images/robo_bolt.png')} style={styles.documentsIcon} />
+          <Image source={require('../../assets/images/document_.png')}/>
           <Text style={styles.documentsText}>Documents</Text>
         </View>
 
         <View style={styles.docInputContainer}>
           <View style={styles.subContainer}>
-            <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+            <Image source={require('../../assets/images/contact.png')} />
             <Text style={styles.titleDocuments}>ID Proof</Text>
             <View style={styles.infoDocumentsView}>
-              <Image source={require('../../assets/images/robo_bolt.png')} style={styles.documentsIcon} />
+              <Image source={require('../../assets/images/cross_t.png')}  style={styles.statusIcon} />
               <Text style={styles.infoDocumentsStatus}>Rejected</Text>
             </View>
           </View>
@@ -85,10 +85,10 @@ return (
 
         <View style={styles.addressProofContainer}>
           <View style={styles.subContainer}>
-            <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+            <Image source={require('../../assets/images/contact.png')} style={styles.icon} />
             <Text style={styles.titleDocuments}>Address Proof</Text>
             <View style={styles.infoDocumentsViewApproved}>
-              <Image source={require('../../assets/images/robo_bolt.png')} style={styles.documentsIcon} />
+              <Image source={require('../../assets/images/cross_t.png')} style={styles.statusIcon} />
               <Text style={styles.infoDocumentsStatus}>Approved</Text>
             </View>
           </View>
@@ -101,13 +101,13 @@ return (
 
         <View style={styles.addressProofContainer}>
           <View style={styles.subContainer}>
-            <Image source={require('../../assets/images/robo_bolt.png')} style={styles.icon} />
+            <Image source={require('../../assets/images/contact.png')} style={styles.icon} />
             <Text style={styles.titleDocuments}>Passport</Text>
             <View style={styles.infoDocumentsViewPending}>
-              <Image source={require('../../assets/images/robo_bolt.png')} style={styles.documentsIcon} />
+              <Image source={require('../../assets/images/info_t.png')} style={styles.statusIcon} />
               <Text style={styles.infoDocumentsStatus}>Pending</Text>
-              <Image source={require('../../assets/images/robo_bolt.png')} style={styles.documentsIcon} />
             </View>
+            <Image source={require('../../assets/images/info.png')} style={styles.infoIcon} />
           </View>
           <TouchableOpacity onPress={() => alert('Button pressed!')}>
             <View style={styles.infoDocumentsViewButton}>
@@ -153,19 +153,20 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Center aligns both image and text vertically
     backgroundColor: 'clear', // Button background color
     height:45,
+    marginLeft: 10,
   },
   icon: {
-    width: 30,  // Set the width of the image
+    width: 18,  // Set the width of the image
     height: 20, // Set the height of the image
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 80,
+    height: 80,
     borderRadius: 5, // Make the images circular
     justifyContent:'center',
     alignItems:'center',
     marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 5,
   },
   
   text: {
@@ -183,6 +184,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignItems:'center',
     marginTop:4,
+    color: "#5F696F",
   },
   profile: {
     flex: 1, // Take up remaining space between the images
@@ -197,12 +199,12 @@ const styles = StyleSheet.create({
   bottomView: {
     flex: 1, // Take up remaining space between the images
     alignItems:'center',
-    backgroundColor: '#C4CACD',
+    backgroundColor: '#C8CED1',
     marginLeft:10,
     marginRight:10,
     marginTop:10,
     borderRadius: 5,
-    height : 45,
+    height : 40,
   },
 
   inputContainer: {
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flexDirection: 'row', // Aligns image and text horizontally
     width: '93%',
-    borderColor: 'gray',
+    borderColor: '#C8CED1',
     borderWidth: 1,
     fontSize: 16,
     marginBottom: 10,
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
 
   updateButtonText: {
     color: '#695DCA', // Text color
-    fontSize: 13,   // Text font size
+    fontSize: 12,   // Text font size
     justifyContent:'center',
     alignItems:'center',
     marginTop:15,
@@ -235,8 +237,8 @@ const styles = StyleSheet.create({
   },
 
   deactivateAcctext: {
-    color: 'black', // Text color
-    fontSize: 16,   // Text font size
+    color: '#333333', // Text color
+    fontSize: 15,   // Text font size
     justifyContent:'center',
     alignItems:'center',
     marginTop:10,
@@ -245,9 +247,11 @@ const styles = StyleSheet.create({
 
   documents: {
     flexDirection: 'row', // Aligns image and text horizontally
+    alignItems:'center',
     height:50,
     backgroundColor: 'white',
     borderRadius: 5,
+    marginLeft: 10,
   },
 
   documentsDetails: {
@@ -276,8 +280,8 @@ const styles = StyleSheet.create({
   },
 
   docInputContainer: {
-    height: 130,
-    backgroundColor: '#DCDCE0',
+    height: 135,
+    backgroundColor: '#F2F2F7',
     borderRadius: 8,
     borderColor: '#695DCA',
     borderWidth: 1,
@@ -289,36 +293,37 @@ const styles = StyleSheet.create({
 
   subContainer: {
     flexDirection: 'row', // Aligns image and text horizontally
-    marginTop:5,
+    marginTop:10,
     marginBottom:5,
     marginLeft:5,
   },
 
   titleDocuments: {
     flex: 1, // Take up remaining space between the images
-    fontSize: 16,
+    fontSize: 15,
     alignItems:'center',
     marginLeft: 5,
   },
 
   infoDocumentsStatus: {
-    fontSize: 16,
+    fontSize: 13,
     color: 'white', // Text color
-    marginRight: 10,
+    marginLeft: 5,
   },
 
   infoDocumentsView:{
     flexDirection: 'row', // Aligns image and text horizontally
-    backgroundColor: 'red',
+    backgroundColor: '#BE3340',
     marginRight: 5,
     alignItems:'center',
     borderRadius: 5,
     height: 30,
+    width: 100,
   },
 
   addressProofContainer: {
-    height: 80,
-    backgroundColor: '#DCDCE0',
+    height: 85,
+    backgroundColor: '#F2F2F7',
     borderRadius: 8,
     borderColor: '#695DCA',
     borderWidth: 1,
@@ -330,11 +335,12 @@ const styles = StyleSheet.create({
 
   infoDocumentsViewApproved:{
     flexDirection: 'row', // Aligns image and text horizontally
-    backgroundColor: 'green',
+    backgroundColor: '#89BC42',
     marginRight: 5,
     alignItems:'center',
     borderRadius: 5,
     height: 30,
+    width: 110,
   },
 
   infoDocumentsViewButton:{
@@ -347,7 +353,7 @@ const styles = StyleSheet.create({
   },
 
   viewText: {
-    fontSize: 16,
+    fontSize: 15,
     color: 'white', // Text color
     marginTop: 5,
     marginBottom: 5,
@@ -361,24 +367,23 @@ const styles = StyleSheet.create({
     alignItems:'center',
     borderRadius: 5,
     height: 30,
+    width: 100,
   },
 
   infoDocumentsViewProof:{
+    flex: 1, // Take up remaining space between the images
     flexDirection: 'row', // Aligns image and text horizontally
     marginTop:5,
     marginBottom:5,
     marginLeft:5,
+    alignItems:'center',
+    justifyContent: "center", // Centers the text vertically
   },
 
   infoDocumentsViewButtonResend:{
     backgroundColor: '#695DCA',
-    alignItems:'center',
     borderRadius: 5,
     height: 33,
-    flexDirection: 'row', // Aligns image and text horizontally
-    marginLeft : 5,
-    marginRight: 5,
-    width: 150,
   },
 
   guideLines:{
@@ -397,6 +402,14 @@ const styles = StyleSheet.create({
     marginLeft:5,
     marginTop: 5,
     marginBottom:5,
+  },
+
+  statusIcon: {
+    marginLeft: 10,
+  },
+
+  infoIcon: {
+    marginRight: 10,
   },
 
 });
