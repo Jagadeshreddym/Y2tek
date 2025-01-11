@@ -53,8 +53,8 @@ const Portfolio = () => {
           <TouchableOpacity
             key={index}
             style={[
-              styles.tab,
-              selectedTab === index && styles.selectedTab, // Highlight selected tab
+              styles.tab1,
+              selectedTab === index && styles.selectedTab1, // Highlight selected tab
             ]}
             onPress={() => handleTabPress(index)} // Change selected tab
           >
@@ -86,16 +86,16 @@ const Portfolio = () => {
       <ScrollView style={{marginTop:30}}>
       <View style={{marginLeft:20, marginRight:20}}>
         {/* Table Header */}
-        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white" content={content} navigate={navigateMenu} />
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="#f5dfc9" content={content} navigate={navigateMenu} />
 
 
-        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white"  content={content} navigate={navigateMenu} />
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="#d8ebc5"  content={content} navigate={navigateMenu} />
 
 
-        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white"  content={content} navigate={navigateMenu} />
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="#c6d6f5"  content={content} navigate={navigateMenu} />
 
 
-        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="white"  content={content} navigate={navigateMenu} />
+        <CardWithText title="BTCUSDT" image1={require('../../assets/images/robo_bolt.png')} image2={require('../../assets/images/navigation_arrow.png')} backgroundColor="#dcdaf5"  content={content} navigate={navigateMenu} />
 
       </View>
     </ScrollView>
@@ -104,7 +104,7 @@ const Portfolio = () => {
 };
 const styles =  StyleSheet.create({
   
-    shadowBox: {
+    shadowBox: {  
         width: '100%',
         height: 473,
         backgroundColor: '#b5cbf6',
@@ -124,7 +124,10 @@ const styles =  StyleSheet.create({
         marginVertical: 10,
       },
       selectedTab: {
-        backgroundColor: '#007bff', // Background for selected tab
+        backgroundColor: '#6d5dd4', // Background for selected tab
+      },
+      selectedTab1: {
+        backgroundColor: '#d8d5f0', // Background for selected tab
       },
       tabText: {
         fontSize: 16,
@@ -153,12 +156,19 @@ const styles =  StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#e0e0e0', 
+        backgroundColor: '#d7d3f0', 
+       
+      },
+      tab1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'f0f0f5', 
        
       },
       selectedTabText: {
         color: '#333', // Text color for selected tab (white)
-        backgroundColor: '#007bff',
+        backgroundColor: '#6C5DD3'
       },
       tableHeader: {
         fontWeight: 'bold',

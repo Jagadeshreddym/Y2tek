@@ -28,7 +28,7 @@ const App: React.FC = () => {
         <Stack.Screen name="dashboard" component={DrawerOverlay}  options={{ headerShown: false }}/>
         <Stack.Screen name="notification" component={Notification}  options={{ headerShown: false }}/>
         <Stack.Screen name="activitylog" component={ActivityLogs}  options={{ headerShown: false }}/>
-        <Stack.Screen name="subscription" component={Subscriptions}  options={{ headerShown: false }}/>
+        <Stack.Screen name="subscription" component={Subscriptions}  options={{ headerShown: false }}/> 
         <Stack.Screen name="userprofile" component={UserProfile}  options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>

@@ -3,9 +3,7 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, Image, Switch } from 'react-native';
 import CustomSwitch from './CustomSwitch';
 
-const contentBots = ['Create', 'Schedule', 'Status', 'Delete'];
-const contentAcc = ['New device login', 'Password change', 'Mobile number change', 'Email change'];
-const contentWallet = ['Reacharge', 'Withdrawal', 'Deposite', 'Trade']
+
 
 
 interface OptionsModel {
@@ -13,80 +11,51 @@ interface OptionsModel {
   notificationType:string
   image1: any;
   backgroundColor?: string;
+  content:string[];
 }
 
-const OptionsList: React.FC<OptionsModel> = ({ title, notificationType, image1, backgroundColor = 'green'}) => {
+const OptionsList: React.FC<OptionsModel> = ({ title, notificationType, image1, backgroundColor = 'green', content}) => {
 
-// State to keep track of the switch's value
-const [isEnabled, setIsEnabled] = useState(false);
+  const [isOn, setIsOn] = useState(false);
+
+  const handleToggle = () => {
+    setIsOn((prevState) => !prevState);
+  };
 
 // Function to toggle the switch
-const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 const handleSwitchChange = (newValue: any) => {
   console.log('Switch value:', newValue);
 };
   return (
     <View style={[styles.listBG, { backgroundColor }]}>
+        
       <View style={styles.container}>
+        <View style={styles.roundedView}>
         <Image source={image1} style={styles.image} />
+        </View>
         <Text style={styles.title}>{title}</Text>
       </View>
       
       <View style={styles.listContainerOne}>
         <Text style={styles.label}>{notificationType}</Text>
-        <CustomSwitch value={true} onValueChange={handleSwitchChange} />
+        <CustomSwitch isOn={isOn} onToggle={handleToggle} />
       </View>
 
       <View style={styles.listContainerHori}>
         
-
-        <View style={styles.listContainer}>
-          <View style={{flexDirection:'row', alignContent:'center',alignItems:'center'}}>
-          <Image source={require("../assets/images/bell.png")} style={styles.subImage} />
-          <Text style={styles.label}>{contentBots[0]}</Text>
+      {content.map((content:string, index:number) => (
+        <View>
+          <View style={styles.listContainer}>
+            <View style={{flexDirection:'row', alignContent:'center',alignItems:'center'}}>
+            <Image source={require("../assets/images/bell.png")} style={styles.subImage} />
+            <Text style={styles.label}>{content}</Text>
+            </View>
+            <CustomSwitch isOn={isOn} onToggle={handleToggle} /> 
           </View>
-         
-          <CustomSwitch value={false} onValueChange={handleSwitchChange} />
+          {index !== (content.length-1) && <View style={styles.line}></View>}
         </View>
-        <View style={styles.line}></View>
-        <View style={styles.listContainer}>
-        <View style={{flexDirection:'row', alignContent:'center',alignItems:'center'}}>
-
-          <Image source={require("../assets/images/bell.png")} style={styles.subImage} />
-          <Text style={styles.label}>{contentBots[1]}</Text>
-          </View>
-       
-        <CustomSwitch value={false} onValueChange={handleSwitchChange} />
-        </View>
-        <View style={styles.line}></View>
-        <View style={styles.listContainer}>
-        <View style={{flexDirection:'row', alignContent:'center',alignItems:'center'}}>
-
-          <Image source={require("../assets/images/bell.png")} style={styles.subImage} />
-          <Text style={styles.label}>{contentBots[2]}</Text>
-          </View>
-        
-        <CustomSwitch value={false} onValueChange={handleSwitchChange} />
-        </View>
-
-        <View style={styles.line}></View>
-        <View style={styles.listContainer}>
-        <View style={{flexDirection:'row', alignContent:'center',alignItems:'center'}}>
-
-          <Image source={require("../assets/images/bell.png")} style={styles.subImage} />
-          <Text style={styles.label}>{contentBots[3]}</Text>
-          </View>
-        
-        <CustomSwitch value={false} onValueChange={handleSwitchChange} />
-        </View>
-
-
-
+      ))}
       </View>
-
-
-
-      
     </View>
   );
 };
@@ -177,6 +146,14 @@ const styles = StyleSheet.create({
       height: 1,
       marginLeft:5,
       marginRight:5,
+    },
+    roundedView: {
+      width: 50,
+      height: 50,
+      backgroundColor: '#6C5DD34D',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 30, // Round the corners
     },
 
   });

@@ -1,16 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {  View, TouchableOpacity, Alert, Text, Image, StyleSheet, ScrollView} from 'react-native';
 
 const ActivityLogs = () => {
-
+  const navigation = useNavigation();
 const tabs = ['Feb 15, 2024 - Today', 'Feb 14, 2024 - Yesterday', 'Feb 13, 2024 - Sunday'];
 
 const logs = ['1', '2', '3'];
 
+const handleGoBack = () => {
+  navigation.goBack();  // This goes back to the previous screen in the stack
+};
+
 return (
     <View style={{ height: "100%", flexDirection: 'column' }}>
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={() => alert('Button pressed!')}>
+            <TouchableOpacity style={styles.button} onPress={handleGoBack}>
                 <Image source={require('../../assets/images/back.png')}/>
             </TouchableOpacity>
             <Text style={styles.text}>Activity Logs</Text>

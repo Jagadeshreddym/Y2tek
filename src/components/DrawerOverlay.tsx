@@ -36,31 +36,35 @@ const DrawerOverlay: React.FC = ({navigation}) => {
   const focusedTabRoute = tabState.routes[focusedTabIndex].name;
 
   // Define the function in the parent
-  const navigateMenu = (index: number) => {
+  const navigateToProfile = () => {
     toggleModal();
-    switch(index)
-    {
-      case 0:
-        navigation.navigate('userprofile');
-        break;
-      case 1:
-        navigation.navigate('subscription');
-      break
-      case 2:
-        navigation.navigate('notification');
-        break;
-      case 3:
-        navigation.navigate('notification');
-      break
-      case 4:
-        navigation.navigate('activitylog');
-        break;
-      case 5:
-        navigation.navigate('notification');
-      break
-    }
-    
+    navigation.navigate('userprofile');  
   };
+  const navigateToSubscription =()=>{
+    toggleModal();
+    navigation.navigate('subscription');
+  }
+
+  const navigateToNotification =()=>{
+    toggleModal();
+    navigation.navigate('notification');
+  }
+
+  const navigateToActivityLog =()=>{
+    toggleModal();
+    navigation.navigate('activitylog');
+  }
+
+  const navigateToSecurity =()=>{
+    toggleModal();
+    
+  }
+
+  const navigateToExchange =()=>{
+    toggleModal();
+   
+  }
+
 
   const toggleModal = () => {
     if (isModalVisible) {
@@ -154,7 +158,7 @@ const DrawerOverlay: React.FC = ({navigation}) => {
                 backgroundColor="white"
                 isHeader={false}
                 navigate={
-                  navigateMenu
+                  navigateToProfile
                   }/>
               <Card
                 title="Subscription"
@@ -162,7 +166,7 @@ const DrawerOverlay: React.FC = ({navigation}) => {
                 image2={require("../assets/images/navigation_arrow.png")}
                 backgroundColor="white"
                 isHeader={false}
-                navigate={navigateMenu}
+                navigate={navigateToSubscription}
               />
               <Card
                 title="Exchange"
@@ -170,7 +174,7 @@ const DrawerOverlay: React.FC = ({navigation}) => {
                 image2={require("../assets/images/navigation_arrow.png")}
                 backgroundColor="white"
                 isHeader={false}
-                navigate={navigateMenu}
+                navigate={navigateToExchange}
               />
               <Card
                 title="Security"
@@ -178,7 +182,7 @@ const DrawerOverlay: React.FC = ({navigation}) => {
                 image2={require("../assets/images/navigation_arrow.png")}
                 backgroundColor="white"
                 isHeader={false}
-                navigate={navigateMenu}
+                navigate={navigateToSecurity}
               />
               <Card
                 title="Activity Logs"
@@ -186,7 +190,7 @@ const DrawerOverlay: React.FC = ({navigation}) => {
                 image2={require("../assets/images/navigation_arrow.png")}
                 backgroundColor="white"
                 isHeader={false}
-                navigate={navigateMenu}
+                navigate={navigateToActivityLog}
               />
               <Card
                 title="Notification"
@@ -194,7 +198,7 @@ const DrawerOverlay: React.FC = ({navigation}) => {
                 image2={require("../assets/images/navigation_arrow.png")}
                 backgroundColor="white"
                 isHeader={false}
-                navigate={navigateMenu}
+                navigate={navigateToNotification}
               />
             </View>
 

@@ -1,10 +1,14 @@
 // screens/DetailsScreen.tsx
 
+import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, ScrollView, TextInput } from 'react-native';
 
-const UserProfile = ({navigation}) => {
-
+const UserProfile = ({}) => {
+ const navigation = useNavigation();
+ const handleGoBack = () => {
+  navigation.goBack();  // This goes back to the previous screen in the stack
+};
 const [phoneNumber, setPhoneNumber] = useState('');
 const [address, setAddress] = useState('');
   
@@ -25,10 +29,11 @@ return (
           <TextInput
             style={styles.input}
             value={phoneNumber}
+            maxLength={15}
             onChangeText={setPhoneNumber} // Updates the text state as the user types
             placeholder="Enter Phone Number"
           />
-          <TouchableOpacity onPress={() => alert('Button pressed!')}>
+          <TouchableOpacity onPress={handleGoBack}>
             <Text style={styles.updateButtonText}>UPDATE</Text>
           </TouchableOpacity> 
         </View>
@@ -37,6 +42,7 @@ return (
           <TextInput
             style={styles.input}
             value={address}
+            maxLength={30}
             onChangeText={setAddress} // Updates the text state as the user types
             placeholder="Enter Address"
           />
@@ -137,6 +143,14 @@ const styles = StyleSheet.create({
     marginBottom:10,
     marginLeft: 10,
   },
+    infoDocumentsViewButton:{
+    backgroundColor: '#695DCA',
+    marginRight: 5,
+    marginLeft: 5,
+    alignItems:'center',
+    borderRadius: 5,
+    height: 33,
+  },
 
   container: {
     height:50,
@@ -210,14 +224,14 @@ const styles = StyleSheet.create({
   inputContainer: {
     height: 45,
     backgroundColor: 'white',
-    marginTop:10,
     borderRadius: 8,
     flexDirection: 'row', // Aligns image and text horizontally
     width: '93%',
     borderColor: '#C8CED1',
     borderWidth: 1,
     fontSize: 16,
-    marginBottom: 10,
+    justifyContent:'space-between',
+    alignItems:'center'
   },
 
   input: {
@@ -225,15 +239,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 10,
     marginRight: 10,
+    
   },
 
   updateButtonText: {
     color: '#695DCA', // Text color
     fontSize: 12,   // Text font size
-    justifyContent:'center',
     alignItems:'center',
-    marginTop:15,
-    marginBottom:10,
+    marginRight:10
   },
 
   deactivateAcctext: {
@@ -377,13 +390,16 @@ const styles = StyleSheet.create({
     marginBottom:5,
     marginLeft:5,
     alignItems:'center',
-    justifyContent: "center", // Centers the text vertically
+    justifyContent: 'space-between'
   },
 
   infoDocumentsViewButtonResend:{
     backgroundColor: '#695DCA',
     borderRadius: 5,
     height: 33,
+    width:150,
+    margin:10,
+    alignItems:'center'
   },
 
   guideLines:{

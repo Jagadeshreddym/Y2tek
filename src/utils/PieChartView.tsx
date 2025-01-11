@@ -17,7 +17,7 @@ const PieChartView = ({data}) => {
   
 
   // Colors for each section
-  const colors = ['#600080', '#9900cc', '#c61aff', '#d966ff'];
+  const colors = ['#4182f2', '#7abf21', '#8073de', '#faa134'];
 
   // Chart sections configuration
   const pieData = data
@@ -62,7 +62,8 @@ const PieChartView = ({data}) => {
   return (
     <View >
       <PieChart
-        style={{height:300, width:'100%', marginTop:20, borderRadius:10}}
+        style={{height:300, width:'100%', marginTop:20, borderRadius:10, shadowColor: '#6d5dd4', 
+          shadowOffset: { width: 0, height: 4 },shadowOpacity: 0.3,shadowRadius: 6,elevation: 8,}}
         outerRadius="60%"  // Makes the chart a donut by reducing outer radius
         innerRadius="40%"  // Creates the hole in the middle
         data={pieData}
@@ -73,5 +74,7 @@ const PieChartView = ({data}) => {
     </View>
   );
 };
+
+
 
 export default PieChartView;
