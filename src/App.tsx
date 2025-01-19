@@ -11,6 +11,7 @@ import ActivityLogs from './components/userProfileMenu/ActivityLogs';
 import Notification from './components/userProfileMenu/Notification';
 import Subscriptions from './components/userProfileMenu/Subscriptions';
 import UserProfile from './components/userProfileMenu/UserProfile';
+import Bot from './components/menu/Bot';
 
 
 
@@ -21,11 +22,11 @@ const App: React.FC = () => {
     <SafeAreaView style={{ flex: 1 }}>
      <NavigationContainer>
       <Stack.Navigator initialRouteName="landing">
-        <Stack.Screen name="landing" component={LandingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="landing" component={Bot} options={{ headerShown: false }} />
         <Stack.Screen name="login" component={LoginScreen}  options={{ headerShown: false }}/>
         <Stack.Screen name="otp" component={OtpScreen}  options={{ headerShown: false }}/>
         <Stack.Screen name="signup" component={SignUpScreen}  options={{ headerShown: false }} />
-        <Stack.Screen name="dashboard" component={DrawerOverlay}  options={{ headerShown: false }}/>
+        <Stack.Screen name="dashboard" component={Bot}  options={{ headerShown: false }}/>
         <Stack.Screen name="notification" component={Notification}  options={{ headerShown: false }}/>
         <Stack.Screen name="activitylog" component={ActivityLogs}  options={{ headerShown: false }}/>
         <Stack.Screen name="subscription" component={Subscriptions}  options={{ headerShown: false }}/> 

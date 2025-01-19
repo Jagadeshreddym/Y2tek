@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "132050717193",
+    "project_id": "y2tek-a1fb8",
+    "storage_bucket": "y2tek-a1fb8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132050717193:android:8dab94f7ee3f6cf07e46d8",
+        "android_client_info": {
+          "package_name": "com.y2tek"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRRtJxvr9Vf25MFPjYCNXuwsi9-qAUglQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
