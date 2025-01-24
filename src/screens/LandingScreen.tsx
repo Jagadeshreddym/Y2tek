@@ -1,12 +1,30 @@
 import React, { useEffect,useState } from 'react';
 import { View, Button, Text, StyleSheet, TextInput, Alert ,TouchableOpacity,Image,ScrollView} from 'react-native';
+import { getData } from '../api/AuthService';
 
 const LandingScreen = ({navigation}) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+ // Function to load data from API
+ const loadData = async () => {
+  setLoading(true);
+  setError('');
+  try {
+    const response = await getData('Jagadeshrm/userNameExists');  // Get posts from API
+    console.log(response);
+    navigation.navigate('login')
+    setData(response);
+  } catch (err) {
+    setError('Failed to fetch data');
+  } finally {
+    setLoading(false);
+  }
+};
 
- 
 
   return (
-    <View style={{flexDirection:'column',flex:1}}>
+    <View style={{flexDirection:'column',flex:1}} >
     <Image source={require('../assets/images/frame.png')} style={{height:'25%', width:'100%'}}/>
      <ScrollView style={styles.box}>
      <View style={styles.container}>
@@ -15,7 +33,7 @@ const LandingScreen = ({navigation}) => {
     <Text style={{fontSize: 20, marginTop:10, marginBottom:10, textAlign:'center'}}>Transforming Transactions, Empowering Portfolios</Text>
     <Text style={{fontSize: 16, marginBottom:10,textAlign:'center', fontFamily: 'League Spartan', color:'#6C5DD3' }}>Experience Crypto Excellence with Our App.</Text>
         {/* Sign Up Button */}
-        <TouchableOpacity style={styles.signupButton} onPress={()=>  navigation.navigate('login')}>
+        <TouchableOpacity style={styles.signupButton} onPress={loadData}>
             <Text style={styles.buttonTextSignUP}>Sign In</Text>
         </TouchableOpacity>
 

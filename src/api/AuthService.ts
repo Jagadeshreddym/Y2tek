@@ -1,81 +1,57 @@
-// auth.ts
+// ApiService.js
+const API_URL = 'https://user.y2tek.io/';  // Example API URL
 
-import AsyncStorage from '@react-native-async-storage/async-storage'; // For React Native apps
-// For web, you can use `localStorage` instead of AsyncStorage
-// import { localStorage } from 'window'; // Uncomment this for web apps
-
-interface AuthResponse {
-  token: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-  };
-}
-
-// Define the type for the authentication state
-interface AuthState {
-  token: string | null;
-  user: { id: number; username: string; email: string } | null;
-}
-
-// AuthService to handle login, logout, and token management
-class AuthService {
-  static async login(username: string, password: string): Promise<AuthResponse | null> {
-    try {
-      // Example login API request (replace with actual API)
-      const response = await fetch('https://your-api.com/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
+// Function to fetch data from API
+export const getData = async (endpoint: any) => {
+  try {
+    const response = await fetch(`${API_URL}/${endpoint}`,{
+      method:'GET',
+      headers:{
+        'Accept': 'application/json',
+         'Accept-Encoding': 'gzip, deflate, br',
+          'Accept-Language': 'en-IN,en-GB;q=0.9,en;q=0.8',
+          'Content-Type': 'application/json ; text/html; charset=UTF-8',
+          'Host': 'user.y2tek.io',
+          'Origin': 'https://bot.y2tek.io',
+          'Referer': 'https://bot.y2tek.io/'
       }
-
-      const data: AuthResponse = await response.json();
-      // Store token and user data in AsyncStorage (or localStorage for web)
-      await AsyncStorage.setItem('authToken', data.token);
-      await AsyncStorage.setItem('user', JSON.stringify(data.user));
-      return data;
-    } catch (error) {
-      console.error('Login Error:', error);
-      return null;
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
     }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
+};
 
-  static async logout(): Promise<void> {
-    // Remove token and user data from AsyncStorage (or localStorage for web)
-    await AsyncStorage.removeItem('authToken');
-    await AsyncStorage.removeItem('user');
-  }
+// Function to post data to API (if needed)
+export const postData = async (endpoint: any, data: any) => {
+  try {
+    const response = await fetch(`${API_URL}/${endpoint}`, {
+      method: 'POST',
+      headers: {
+         'Accept': 'application/json',
+         'Accept-Encoding': 'gzip, deflate, br',
+         'Accept-Language': 'en-IN,en-GB;q=0.9,en;q=0.8',
+         'Content-Type': 'application/json ; text/html; charset=UTF-8',
+         'Host': 'user.y2tek.io',
+         'Origin': 'https://bot.y2tek.io',
+         'Referer': 'https://bot.y2tek.io/'
+      },
+      body: JSON.stringify(data),
+    });
 
-  static async getAuthData(): Promise<AuthState> {
-    const token = await AsyncStorage.getItem('authToken');
-    const user = await AsyncStorage.getItem('user');
-
-    if (!token || !user) {
-      return { token: null, user: null };
+    if (!response.ok) {
+      throw new Error('Failed to post data');
     }
 
-    return {
-      token,
-      user: JSON.parse(user),
-    };
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-
-  static async isAuthenticated(): Promise<boolean> {
-    const { token } = await this.getAuthData();
-    return !!token; // If there's a token, the user is considered authenticated
-  }
-
-  static async getToken(): Promise<string | null> {
-    const { token } = await this.getAuthData();
-    return token;
-  }
-}
-
-export default AuthService;
+};

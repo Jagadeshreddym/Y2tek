@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
 import {  View, StyleSheet, TouchableOpacity, Text, Image, Button, ScrollView} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 const Bot = () => {
     const navigation = useNavigation();
     const handleGoBack = () => {
+        console.log("Selected Index navigate back")
         navigation.goBack();  // This goes back to the previous screen in the stack
     };
 
@@ -19,125 +21,35 @@ const Bot = () => {
 
 return (
     <View style={styles.container}>
-        <View style={{ backgroundColor: "#2AACF5", width: "100%", height: 130 }}>
-            <View
-                style={{
-                    backgroundColor: "white",
-                    flexDirection: "row",
-                    padding: 10,
-                    borderBottomEndRadius: 10,
-                    borderBottomLeftRadius: 10,
-                    alignItems: "center",
-                    width: "100%",
-                    justifyContent: "space-between",
-                }}
-            >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-                        <Image source={require('../../assets/images/back.png')} />
-                    </TouchableOpacity>
-                    <Text style={styles.text}>Bots</Text>
-                </View>
-
-                <Image
-                    source={require("../../assets/images/bell_.png")}
-                    style={{ marginEnd: 10, justifyContent: "flex-end" }}
-                />
-            </View>
-
-            <View style={styles.viewContainer}>
-                <View style={styles.view}>
-                    <Text style={styles.titleText}>REALIZED P&L</Text>
-                    <Text style={styles.priceText}>$140</Text>
-                </View>
-                <View style={styles.view}>
-                    <Text style={styles.titleText}>UNREALIZED P&L</Text>
-                    <Text style={styles.priceText}>$120</Text>
-                </View>
-            </View>
-        </View>
-
+        
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.tapContainer}>
-                <View style={styles.subView}>
-                    <Image
-                        source={require("../../assets/images/home_tab.png")} style={styles.timeIcon}
-                    />
-                    <Text style={styles.text_1}>P&L</Text>
-                    <Image
-                        source={require("../../assets/images/navigate.png")}
-                        style={{ marginEnd: 2, justifyContent: "flex-end" }}
-                    />
+                <View style={styles.shadowBox} >
+                    <LinearGradient
+                        colors={['#2AACF5', '#9100EB']}
+                        style={styles.linearGradient}
+                    >
+                        <View style={styles.viewContainer}>
+                            <View style={styles.view}>
+                                <Text style={styles.titleText}>REALIZED P&L</Text>
+                                <Text style={styles.priceText}>$140</Text>
+                            </View>
+                            <View style={styles.view}>
+                                <Text style={styles.titleText}>UNREALIZED P&L</Text>
+                                <Text style={styles.priceText}>$120</Text>
+                            </View>
+                        </View>
+                        
+                        
+
+                    </LinearGradient>
                 </View>
-                <View style={styles.subView}>
-                    <Image
-                        source={require("../../assets/images/home_tab.png")} style={styles.timeIcon}
-                    />
-                    <Text style={styles.text_1}>Trade book</Text>
-                    <Image
-                        source={require("../../assets/images/navigate.png")}
-                        style={{ marginEnd: 2, justifyContent: "flex-end" }}
-                    />
-                </View>
+                
             </View>
 
-            <View style={styles.searchContainer}>
-                <Text style={styles.text_1}>Search</Text>
-            </View>
+           
 
-            <View style={styles.sortContainer}>
-                <Image
-                    source={require("../../assets/images/contact.png")}
-                    style={{ margin: 10, justifyContent: "flex-end" }}
-                />
-                <Text style={styles.titleText_3}>25 Bots</Text>
-            </View>
-
-            {plans.map((tab, index) => (
-                <TouchableOpacity
-                    key={index}
-                    style={[
-                        styles.tab,
-                        selectedTab === index && styles.tab, // Highlight selected tab
-                    ]}
-                    onPress={() => handleTabPress(index)} // Change selected tab
-                >
-                    <View style={styles.buyBotContainer}>
-                        <View style={styles.subContainer}>
-                            <Image source={require('../../assets/images/contact.png')} />
-                            <Text style={styles.titleDocuments}>Bot_Name_Buy_1234</Text>
-                            <Image source={require('../../assets/images/contact.png')} />
-                        </View>
-                        <View style={styles.priceContainer}>
-                            <Text style={styles.titleText_2}>Fiat Price</Text>
-                            <Text style={styles.priceText_2}>$2.9430</Text>
-                        </View>
-
-                        <View style={styles.priceViewContainer}>
-                            <View style={styles.priceView}>
-                                <Text style={styles.titleText_1}>Realized</Text>
-                                <Text style={styles.priceText_1}>$2.9430</Text>
-                            </View>
-                            <View style={styles.priceView}>
-                                <Text style={styles.titleText_1}>Unrealized</Text>
-                                <Text style={styles.priceText_1}>$2.9430</Text>
-                            </View>
-                            <View style={styles.priceView}>
-                                <Text style={styles.titleText_1}>Capital</Text>
-                                <Text style={styles.priceText_1}>$1000</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.subContainer}>
-                            <Text style={styles.titleDocuments}>Active</Text>
-                            <Image source={require('../../assets/images/contact.png')} />
-                            <Text style={styles.titleDocuments}>12-01-2024 to 12-01-2024</Text>
-                        </View>
-                    </View>
-                   
-                    {/* <Text style={{ color: selectedTab === index ? 'white' : '#695DCA' }}>{tab}</Text> */}
-                </TouchableOpacity>
-            ))}
+          
         </ScrollView> 
 
     </View>
@@ -164,7 +76,28 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', // Button background color
         marginLeft: 8,
     },
-
+    linearGradient: {
+        height: 130,
+        width: '100%',
+        marginTop: -10,
+        borderRadius: 10,  // Rounded corners
+    
+      },
+      shadowBox: {
+        width: '100%',
+        height: 133,
+        backgroundColor: '#b5cbf6',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,  // Rounded corners
+        // iOS Shadow
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 }, // Horizontal & vertical offset
+        shadowOpacity: 0.8,   // Shadow opacity (0 to 1)
+        shadowRadius: 6,      // How much to blur the shadow
+        // Android Shadow (Elevation)
+        elevation: 8,  // Increase to make the shadow more prominent
+      },
     defaultContainer:{
         height: 65,
         marginLeft: 10,
@@ -182,12 +115,15 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',  // Arrange buttons horizontally
         width: '100%',         // Ensure the container takes full width
+        marginTop:40,
+        
     },
     view: {
         flex: 1,               // Equal width for each button
         backgroundColor: 'white',
         padding: 10,
         margin: 12,
+        height:70,
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 }, // Horizontal & vertical offset
@@ -200,8 +136,6 @@ const styles = StyleSheet.create({
     priceView: {
         flex: 1,               // Equal width for each button
         backgroundColor: '#F2F2F7',
-        // paddingLeft: 30,
-        // paddingRight: 30,
         height:55,
         margin: 5,
         borderRadius: 10,
@@ -210,6 +144,7 @@ const styles = StyleSheet.create({
     titleText: {
         color: 'black',
         fontSize: 11,
+        marginTop:10
     },
 
     titleText_1: {
@@ -251,7 +186,7 @@ const styles = StyleSheet.create({
 
     tapContainer: {
         flex: 1,
-        flexDirection: 'row',  // Arrange buttons horizontally
+        flexDirection: 'column',  // Arrange buttons horizontally
         width: '100%',         // Ensure the container takes full width
         height: 70,
     },
@@ -266,9 +201,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         flex: 1,
         flexDirection: "row",
-        // borderBottomEndRadius: 10,
-        // borderBottomLeftRadius: 10,
-        // alignItems: "center",
         width: "100%",
         justifyContent: "space-between"
     },
@@ -287,7 +219,6 @@ const styles = StyleSheet.create({
     searchContainer: {
         flex: 1,
         flexDirection: 'row',  // Arrange buttons horizontally
-        // width: '100%',         // Ensure the container takes full width
         height: 40,
         backgroundColor: 'white',
         marginLeft: 15,
@@ -298,25 +229,18 @@ const styles = StyleSheet.create({
     },
 
     priceContainer: {
-        // flex: 1,
         justifyContent: 'space-evenly',
-        // flexDirection: 'row', // Aligns image and text horizontally
-        // marginTop:10,
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 8,
         height: 55,
         backgroundColor: '#F2F2F7',
         borderRadius: 8,
-        // alignItems : 'center'
     },
 
     priceViewContainer: {
-        // flex: 1,
         width: '100%',
         flexDirection: 'row', // Aligns image and text horizontally
-        // marginTop:10,
-        // marginBottom:10,
         marginLeft:5,
         marginRight:5,
         height: 60,
@@ -328,7 +252,6 @@ const styles = StyleSheet.create({
     sortContainer: {
         flex: 1,
         flexDirection: 'row',  // Arrange buttons horizontally
-        // width: '100%',         // Ensure the container takes full width
         height: 40,
         backgroundColor: 'white',
         marginLeft: 15,
@@ -339,8 +262,6 @@ const styles = StyleSheet.create({
 
     buyBotContainer: {
         flex: 1,
-        // flexDirection: 'row',  // Arrange buttons horizontally
-        // width: '100%',         // Ensure the container takes full width
         height: 210,
         backgroundColor: 'white',
         marginLeft: 15,
@@ -364,30 +285,24 @@ const styles = StyleSheet.create({
 
     scrollContainer: {
         flex: 1,
-        // flexDirection: 'row',  // Arrange buttons horizontally
-        width: '100%',         // Ensure the container takes full width
-        // height: 40,
-        // alignItems: "center",
-        // height: 300,
+        width: '100%', 
     },
 
     subContainer: {
         flexDirection: 'row', // Aligns image and text horizontally
-        marginTop:10,
-        marginLeft:5,
-        marginRight:5,
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5,
         width: '100%',
-        // flex: 1,
         height: 30,
-        // backgroundColor: 'gray'
-      },
-    
-      titleDocuments: {
+    },
+
+    titleDocuments: {
         flex: 1, // Take up remaining space between the images
         fontSize: 15,
-        alignItems:'center',
+        alignItems: 'center',
         marginLeft: 5,
-      },
+    },
 
 
   infoDocumentsView:{
@@ -404,7 +319,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: '#D8D5EE',
     },
 });
 

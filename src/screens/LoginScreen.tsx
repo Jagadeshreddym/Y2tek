@@ -3,6 +3,7 @@ import { View, Button, Text, StyleSheet, TextInput, Alert ,TouchableOpacity,Imag
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { useNavigation } from '@react-navigation/native';
+import { postData } from '../api/AuthService';
 
 
 const LoginScreen = ({navigation}) => {
@@ -10,6 +11,33 @@ const LoginScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+   const loginService = async () => {
+    setLoading(true);
+    setError('');
+    try {
+
+      const loginData = {
+        "email":email,
+        "password":password,
+        "deviceType":"mobile",
+        "timeZone":"Asia/Calcutta",
+        "location":"2nd Cross Road, Bengaluru Urban, Gandhipura -",
+        "countryCode":"INDIA"
+      };
+      const response = await postData('login', loginData);  // Get posts from API
+      console.log(response);
+      navigation.navigate('otp')
+      setData(response);
+    } catch (err) {
+      setError('Failed to fetch data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Sign-up function (For now, just shows an alert with the form values)
   const handleSignUp = () => {
@@ -91,7 +119,7 @@ const LoginScreen = ({navigation}) => {
         secureTextEntry={true}
       />
         {/* Sign Up Button */}
-        <TouchableOpacity style={styles.signupButton} onPress={()=>  navigation.navigate('otp')}>
+        <TouchableOpacity style={styles.signupButton} onPress={loginService}>
             <Text style={styles.buttonTextSignUP}>Sign In</Text>
         </TouchableOpacity>
 
